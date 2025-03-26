@@ -7,8 +7,7 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,9 +52,6 @@ fun ListContent(
         modifier = modifier,
         containerColor = Color.Red,
         topBar = { CustomTopBar() },
-        floatingActionButton = {
-            FloatingActionButton(onClick = onNextPage) {}
-        }
     ) { scaffoldPadding ->
         LazyVerticalStaggeredGrid(
             columns = StaggeredGridCells.Fixed(2),
@@ -66,7 +62,13 @@ fun ListContent(
             verticalItemSpacing = 8.dp,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(pokemonList) { pokemon ->
+            itemsIndexed(pokemonList) { index, pokemon ->
+                if (index == pokemonList.lastIndex) {
+                    LaunchedEffect(Unit) {
+                        onNextPage()
+                    }
+                }
+
                 PokemonCardItem(
                     pokemon,
                     onCardClick = { onAddItemClick(pokemon.name) }
