@@ -20,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,6 +32,7 @@ import com.example.pokedexcompose.domain.model.fakeListPokemon
 import com.example.pokedexcompose.ui.PokemonViewModel
 import com.example.pokedexcompose.ui.presentation.component.TextTagItem
 import com.example.pokedexcompose.ui.theme.PokedexComposeTheme
+import com.example.pokedexcompose.R
 
 @Composable
 fun PokemonInformationScreen(
@@ -53,8 +55,14 @@ fun PokemonInformationContent(pokemon: PokemonInformation, modifier: Modifier = 
     Scaffold(
         modifier = modifier,
         containerColor = Color.Red,
-        topBar = { CustomTopBar() }
+        topBar = {
+            CustomTopBar(
+                sprite = pokemon.spritesToolbar,
+                text = stringResource(R.string.pokemon_name, pokemon.id, pokemon.name)
+            )
+        }
     ) { scaffoldPadding ->
+
         Column(
             modifier = modifier
                 .background(Color.White)
@@ -67,14 +75,17 @@ fun PokemonInformationContent(pokemon: PokemonInformation, modifier: Modifier = 
                     .fillMaxWidth()
                     .padding(12.dp)
             ) {
+
                 Column {
-                    Text("weight: ${pokemon.weight} Kg", fontSize = 14.sp)
-                    Text("height: ${pokemon.height} m", fontSize = 14.sp)
+                    Text(stringResource(R.string.weight, pokemon.weight), fontSize = 14.sp)
+                    Text(stringResource(R.string.height, pokemon.height), fontSize = 14.sp)
                 }
+
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
+
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
                         AsyncImage(
@@ -95,12 +106,14 @@ fun PokemonInformationContent(pokemon: PokemonInformation, modifier: Modifier = 
                     .padding(vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Text(
-                    text = "Type",
+                    text = stringResource(R.string.type),
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
+
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.padding(top = 4.dp)
@@ -121,12 +134,14 @@ fun PokemonInformationContent(pokemon: PokemonInformation, modifier: Modifier = 
                     .padding(vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Text(
-                    text = "Moves",
+                    text = stringResource(R.string.moves),
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
+
                 LazyRow(
                     modifier = Modifier.padding(top = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
