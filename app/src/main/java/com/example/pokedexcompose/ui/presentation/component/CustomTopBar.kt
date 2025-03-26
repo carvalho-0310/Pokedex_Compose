@@ -25,6 +25,7 @@ import com.example.pokedexcompose.ui.theme.WhitePokemon
 fun CustomTopBar(
     modifier: Modifier = Modifier
 ) {
+
     Column(modifier = modifier.background(BlackPokemon)) {
         Row(
             modifier = Modifier
